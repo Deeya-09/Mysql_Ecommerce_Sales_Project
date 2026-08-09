@@ -1,1 +1,5 @@
-# Mysql_Ecommerce_Sales_Project
+#Ecommerce Sales and Customer Analysis Project
+
+##Project Overview
+
+
