@@ -31,7 +31,7 @@ A database called e-commerce was created. A table named sales is created in this
 ## Data Cleaning 
 The dataset was cleaned before analysis by checking for duplicates, trailing spaces and creating an extra column called date_cleaned for the formatted dates.
 
-'''sql 
+```sql 
 -- DATA CLEANING (FORMATTING DATE)
 ALTER TABLE sales_staging
 ADD COLUMN date_cleaned DATE;
@@ -80,11 +80,11 @@ OR
 revenue IS NULL
 OR
 date_cleaned IS NULL;
-'''
+```
 
 ## Data Exploration 
 
-'''sql 
+```sql 
 -- DATA EXPLORATION
 -- Total sales
 SELECT COUNT(*) AS total_sales 
@@ -97,117 +97,117 @@ FROM sales_staging;
 -- Number of unique categories
 SELECT COUNT(DISTINCT product_category) AS total_category
 FROM sales_staging;
-'''
+```
 
 ## SQL Analysis 
 
 **1. Write an SQL query to retrieve all columns for sales made on 2022/11/05**
 
-'''sql
+```sql
 SELECT *
 FROM sales_staging
 WHERE date_cleaned = '2022/11/05';
-'''
+```
 
 **2. Write a query to retrieve all transactions where category is electronics and quantity sold is more than 3 in the month of January 2023.**
 
-'''sql
+```sql
 SELECT *
 FROM sales_staging
 WHERE product_category = 'Electronics'
 AND quantity > 3
 AND date_cleaned >= '2023-11-01'
 AND date_cleaned < '2023-12-01';
-'''
+```
 
 **3. Write a query to calculate total quantity sold of each category.**
 
-'''sql
+```sql
 SELECT (product_category),
 SUM(quantity) AS total_quantity_sold
 FROM sales_staging
 GROUP BY product_category 
 ORDER BY total_quantity_sold DESC;
-'''
+```
 
 **4. Calculate total revenue for each product category.**
-'''sql
+```sql
 SELECT (product_category),
 ROUND(SUM(revenue),2) as total_revenue
 FROM sales_staging 
 GROUP BY product_category
 ORDER BY total_revenue DESC;
-'''
+```
 
 **5. Which region generated the highest revenue.**
-'''sql 
+```sql 
 SELECT (REGION),
 ROUND(SUM(revenue),2) AS total_revenue
 FROM sales_staging
 GROUP BY region
 ORDER BY total_revenue DESC
 LIMIT 1;
-'''
+```
 
 **6. What is the average customer rating for each product category?.**
-'''sql 
+```sql 
 SELECT (product_category),
 ROUND(AVG(customer_rating),2)AS avg_cust_rating
 FROM sales_staging
 GROUP BY product_category 
 ORDER BY avg_cust_rating DESC;
-'''
+```
 
 **7. What is the average delivery time for each region.**
-'''sql
+```sql
 SELECT (region),
 ROUND(AVG(delivery_days)) AS avg_delivery
 FROM sales_staging
 GROUP BY region
 ORDER BY avg_delivery;
-'''
+```
 
 **8. Which payment method is used most frequently?.**
-'''sql
+```sql
 SELECT (payment_method),
 COUNT(*) AS times_used
 FROM sales_staging
 GROUP BY payment_method 
 ORDER BY times_used DESC
 LIMIT 1;
-'''
+```
 
 **9. Calculate the number of orders made in each product category.**
-'''sql 
+```sql 
 SELECT product_category,
 COUNT(*) AS total_orders
 FROM sales_staging 
 GROUP BY product_category 
 ORDER BY total_orders DESC;
-'''
+```
 
 **10. Which customers placed more than 5 orders and in which category?.**
-'''sql
+```sql
 SELECT customer_id, product_category,
 COUNT(*) as total_orders 
 FROM sales_staging 
 GROUP BY customer_id, product_category
 HAVING COUNT(*) > 5
 ORDER BY total_orders DESC; 
-'''
+```
 
 **11. Find top 10 customers by total revenue generated .**
-'''sql
+```sql
 SELECT customer_id,
 ROUND(SUM(revenue), 2) AS total_revenue
 FROM sales_staging 
 GROUP BY customer_id
 ORDER BY total_revenue DESC
 LIMIT 10;
-'''
+```
 
 **12. Find out the month with highest revenue in each year.**
-'''sql
+```sql
 SELECT year, month, total_revenue
 FROM
 ( 
@@ -220,30 +220,30 @@ FROM sales_staging
 GROUP BY 1, 2
 ) AS t1
 WHERE rank_num = 1;
-'''
+```
 
 **13. Do longer delivery times tend to have low customer rating?.**
-'''sql
+```sql
 SELECT delivery_days,
 ROUND(AVG(customer_rating), 2) AS 
 avg_rating 
 FROM sales_staging
 GROUP BY delivery_days
 ORDER BY delivery_days;
-'''
+```
 
 **14. Which category had the highest average discount.**
-'''sql
+```sql
 SELECT product_category,
 ROUND(AVG(discount), 4) AS avg_discount 
 FROM sales_staging 
 GROUP BY product_category 
 ORDER BY avg_discount DESC
 LIMIT 1;
-'''
+```
 
 **15. Rank regions by revenue within each year.**
-'''sql 
+```sql 
 WITH yearly_region_revenue AS
 (
 SELECT 
@@ -259,7 +259,7 @@ RANK() OVER(PARTITION BY year
 ORDER BY total_revenue DESC) as rank_num
 FROM yearly_region_revenue
 ORDER BY year, rank_num;
-'''
+```
 
 
 ## Findings 
