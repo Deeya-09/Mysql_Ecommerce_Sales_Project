@@ -273,7 +273,7 @@ ORDER BY year, rank_num;
 - Beauty and Clothing had the highest average customer rating at 3.01, while Home had the lowest at 2.94. Overall, the customer ratings were very similar across all product categories.
 - Longer delivery times generally showed lower customer ratings, with 11-day deliveries having lowest average rating of 2.89
 
-  ## Conclusion
+## Conclusion
 
 This is an introductory SQL data analysis project using an E-commerce sales dataset. The project focused on building foundational SQL skills through data cleaning, exploration, and answering business related questions that covered sales performance, customer behaviour, product categories, regional performance, delivery times, discounts, and customer ratings.
 
